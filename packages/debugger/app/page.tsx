@@ -6,6 +6,7 @@ import { FrameUI, fallbackFrameContext } from "frames.js/render";
 import { useFrame } from "frames.js/render/use-frame";
 import { FrameImageNext } from "frames.js/render/next";
 import { useFarcasterIdentity } from "./hooks/use-farcaster-identity";
+import { useDscvrIdentity } from "./hooks/use-dscvr-identity";
 import { FrameDebugger } from "./components/frame-debugger";
 import { useRouter } from "next/navigation";
 
@@ -13,9 +14,18 @@ import dynamic from "next/dynamic";
 import { MockHubActionContext } from "./utils/mock-hub-utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-const LoginWindow = dynamic(() => import("./components/create-signer"), {
-  ssr: false,
-});
+const LoginWindowDscvr = dynamic(
+  () => import("./components/create-dscvr-identity"),
+  {
+    ssr: false,
+  }
+);
+const LoginWindowFarcaster = dynamic(
+  () => import("./components/create-signer"),
+  {
+    ssr: false,
+  }
+);
 
 export default function Page({
   searchParams,
@@ -24,6 +34,7 @@ export default function Page({
 }): JSX.Element {
   const router = useRouter();
   const url = searchParams.url ?? null;
+  const isDscvr = searchParams.dscvr === "true";
   const [urlInput, setUrlInput] = useState(
     url || process.env.NEXT_PUBLIC_HOST || "http://localhost:3000"
   );
@@ -41,13 +52,14 @@ export default function Page({
       setUrlInput(url);
     }
   }, [url]);
-  const signerState = useFarcasterIdentity();
+  const farcasterSignerState = useFarcasterIdentity();
+  const dscvrSignerState = useDscvrIdentity();
   const frameState = useFrame({
     homeframeUrl: url,
     frameActionProxy: "/frames",
     frameGetProxy: "/frames",
     frameContext: fallbackFrameContext,
-    signerState,
+    signerState: isDscvr ? dscvrSignerState : farcasterSignerState,
     extraButtonRequestPayload: { mockData: mockHubContext },
   });
 
@@ -106,13 +118,42 @@ export default function Page({
             <Button className="rounded-l-none">Debug</Button>
           </form>
 
-          <LoginWindow
-            farcasterUser={signerState.signer ?? null}
-            loading={!!signerState.isLoading ?? false}
-            startFarcasterSignerProcess={signerState.onSignerlessFramePress}
-            impersonateUser={signerState.impersonateUser}
-            logout={signerState.logout}
-          ></LoginWindow>
+          <div className="flex gap-4">
+            <button
+              className={`underline ${!isDscvr ? "text-gray-500" : ""}`}
+              disabled={!isDscvr}
+              onClick={(_) =>
+                router.push(`?url=${encodeURIComponent(urlInput)}`)
+              }
+            >
+              Switch to Farcaster
+            </button>
+
+            <button
+              className={`underline ${isDscvr ? "text-gray-500" : ""}`}
+              disabled={isDscvr}
+              onClick={(_) =>
+                router.push(`?url=${encodeURIComponent(urlInput)}&dscvr=true`)
+              }
+            >
+              Switch to Dscvr
+            </button>
+          </div>
+          {isDscvr ? (
+            <LoginWindowDscvr
+              dscvrIdentity={dscvrSignerState.signer}
+              impersonateUser={dscvrSignerState.impersonateUser}
+              logout={dscvrSignerState.logout}
+            />
+          ) : (
+            <LoginWindowFarcaster
+              farcasterUser={farcasterSignerState.signer ?? null}
+              loading={!!farcasterSignerState.isLoading ?? false}
+              startFarcasterSignerProcess={farcasterSignerState.onSignerlessFramePress}
+              impersonateUser={farcasterSignerState.impersonateUser}
+              logout={farcasterSignerState.logout}
+            />
+          )}
         </div>
       </div>
       {url ? (
