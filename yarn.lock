@@ -563,10 +563,10 @@
     picocolors "^1.0.0"
     sisteransi "^1.0.5"
 
-"@dscvr-one/frames-adapter@^1.0.0-alpha1":
-  version "1.0.0-alpha1"
-  resolved "https://npm.pkg.github.com/download/@dscvr-one/frames-adapter/1.0.0-alpha1/6342c845b52a62665bb67b9323b85d170374e170#6342c845b52a62665bb67b9323b85d170374e170"
-  integrity sha512-qujhA8DuEQ3VIdXgnyDUsD+wBikTxZkidJTLZgem2U8/zmxqvakTl2GRF2SnCxcSGUK7rGbiJNalWExu5x4Vqg==
+"@dscvr-one/frames-adapter@^1.0.1":
+  version "1.0.1"
+  resolved "https://npm.pkg.github.com/download/@dscvr-one/frames-adapter/1.0.1/1c5c8b028d38042306544d7c3c250fe6052adcdc#1c5c8b028d38042306544d7c3c250fe6052adcdc"
+  integrity sha512-WKfDvSwjlrYdjda7e/uAsk8QSjny0xDq0fMwEXABl3sRBb/7ecBqGkQNjRmkErmxXuaY0aowU8Dqq2leybF31g==
   dependencies:
     "@urql/core" "^4.3.0"
 

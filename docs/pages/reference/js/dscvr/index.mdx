@@ -1,4 +1,4 @@
-import { HomePage } from 'vocs/components';
+import { HomePage } from "vocs/components";
 
 # DSCVR Support
 
@@ -6,10 +6,10 @@ Cross-protocol frames are supported by frames.js via familiar APIs. This guide w
 
 ## Setup
 
-First, you need to install `frames.js` and `@dscvr-one/frames-adapter`. You can do this by running the following command:
+First, you need to install `@dscvr-one/frames.js` and `@dscvr-one/frames-adapter`. You can do this by running the following command:
 
 <HomePage.InstallPackage
-  name="frames.js @dscvr-one/frames-adapter"
+  name="@dscvr-one/frames.js @dscvr-one/frames-adapter"
   type="install"
 />
 
@@ -22,7 +22,7 @@ To write a frame using Next.js, we need to create a page which renders the frame
 We start by creating a new API route which will handle POST requests to our frame. In your Next.js project, create a new directory `/frames` and inside it, create a `route.ts` file which contains the following code:
 
 ```tsx filename="example0.ts"
-export { POST } from 'frames.js/next/server';
+export { POST } from "frames.js/next/server";
 ```
 
 This will handle POST requests to our frame and redirect them to page we are about to create, which will handle the rendering logic.
@@ -41,7 +41,7 @@ import {
   NextServerPageProps,
   getFrameMessage,
   getPreviousFrame,
-} from 'frames.js/next/server';
+} from "frames.js/next/server";
 ```
 
 `FrameButton`, `FrameContainer`, and `FrameImage` are components that are used to construct Frame metadata tags in HTML. `NextServerPageProps` is a type that you can use to define the props of your page. `getFrameMessage` and `getPreviousFrame` are functions that you can use to get the message and the previous frame of your page to determine the next state to return.
@@ -51,9 +51,9 @@ Next, import the DSCVR validation methods from frames.js
 ```tsx filename="example2.tsx"
 // [!include example1.tsx]
 import {
-  getDscvrFrameMessage,
+  validateDscvrFrameMessage,
   isDscvrFrameActionPayload,
-} from 'frames.js/dscvr'; // [!code focus]
+} from "@dscvr-one/frames.js/dscvr"; // [!code focus]
 ```
 
 Then define the client protocols that your frame will support. In our case we will support DSCVR and Farcaster.
@@ -66,23 +66,23 @@ import {
   NextServerPageProps,
   getFrameMessage,
   getPreviousFrame,
-} from 'frames.js/next/server';
+} from "frames.js/next/server";
 import {
-  getDscvrFrameMessage,
+  validateDscvrFrameMessage,
   isDscvrFrameActionPayload,
-} from 'frames.js/dscvr';
+} from "@dscvr-one/frames.js/dscvr";
 
 const acceptedProtocols: ClientProtocolId[] = [
   // [!code focus]
   {
     // [!code focus]
-    id: 'dscvr', // [!code focus]
-    version: 'vNext', // [!code focus]
+    id: "dscvr", // [!code focus]
+    version: "vNext", // [!code focus]
   }, // [!code focus]
   {
     // [!code focus]
-    id: 'farcaster', // [!code focus]
-    version: 'vNext', // [!code focus]
+    id: "farcaster", // [!code focus]
+    version: "vNext", // [!code focus]
   }, // [!code focus]
 ]; // [!code focus]
 ```
@@ -121,7 +121,7 @@ Here we use `previousFrame` to extract the frame action payload and state from t
 
 ### Validating a Frame Action
 
-Before returning a frame or doing any processing, you may want to validate the frame and extract the context from which the frame was interacted with e.g. the user that clicked the button in a farcaster in an DSCVR chat. This is where the `getFrameMessage`, `getDscvrFrameMessage`, and `isDscvrFrameActionPayload` functions come in.
+Before returning a frame or doing any processing, you may want to validate the frame and extract the context from which the frame was interacted with e.g. the user that clicked the button in a farcaster in an DSCVR chat. This is where the `getFrameMessage`, `validateDscvrFrameMessage`, and `isDscvrFrameActionPayload` functions come in.
 
 ```tsx filename="example5.tsx"
 const previousFrame = getPreviousFrame(searchParams);
@@ -139,7 +139,7 @@ if (
   isDscvrFrameActionPayload(previousFrame.postBody) // [!code focus]
 ) {
   // [!code focus]
-  const frameMessage = await getDscvrFrameMessage(previousFrame.postBody); // [!code focus]
+  const frameMessage = await validateDscvrFrameMessage(previousFrame.postBody); // [!code focus]
   // do something with DSCVR frame message // [!code focus]
 } else {
   // [!code focus]
@@ -150,7 +150,7 @@ if (
 // ...
 ```
 
-Here we use `previousFrame.postBody` to extract the frame action payload from the previous frame. We then use `isDscvrFrameActionPayload` to determine if the frame action payload is an DSCVR frame action payload. If it is, we use `getDscvrFrameMessage` to extract the DSCVR frame message from the frame action payload. If it isn't, we use `getFrameMessage` to extract the Farcaster frame message from the frame action payload.
+Here we use `previousFrame.postBody` to extract the frame action payload from the previous frame. We then use `isDscvrFrameActionPayload` to determine if the frame action payload is an DSCVR frame action payload. If it is, we use `validateDscvrFrameMessage` to extract the DSCVR frame message from the frame action payload. If it isn't, we use `getFrameMessage` to extract the Farcaster frame message from the frame action payload.
 
 Now we can use data from the different message contexts to populate our `fid`, `walletAddress`, `verifiedDscvrUserId`, `verifiedDscvrContentId` variables.
 
@@ -166,7 +166,7 @@ if (
   previousFrame.postBody &&
   isDscvrFrameActionPayload(previousFrame.postBody)
 ) {
-  const frameMessage = await getDscvrFrameMessage(previousFrame.postBody);
+  const frameMessage = await validateDscvrFrameMessage(previousFrame.postBody);
   dscvrUser = frameMessage?.verifiedUser; // [!code focus]
 } else {
   const frameMessage = await getFrameMessage(previousFrame.postBody);

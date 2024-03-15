@@ -1,19 +1,14 @@
 import {
   type DscvrFramesRequest,
   type DscvrClientProtocol,
-  type DscvrFrameActionData,
+  type DscvrValidationResponse,
   validateClientProtocol,
   validateFramesPost,
 } from "@dscvr-one/frames-adapter";
 import { FrameActionPayload } from "..";
 
-export type DscvrFrameMessageReturnType = DscvrFrameActionData & {
-  verifiedDscvrId: string;
-  verifiedContentId?: bigint;
-};
-
 export const isDscvrFrameActionPayload = (
-  frameActionPayload: FrameActionPayload
+  frameActionPayload: FrameActionPayload,
 ): frameActionPayload is DscvrFramesRequest => {
   return (
     !!frameActionPayload.clientProtocol &&
@@ -21,18 +16,17 @@ export const isDscvrFrameActionPayload = (
   );
 };
 
-export const getDscvrFrameMessage = async (
-  frameActionPayload: DscvrFramesRequest
-): Promise<DscvrFrameMessageReturnType> => {
-  const { actionBody, verifiedDscvrId, verifiedContentId } =
-    await validateFramesPost({
+export const validateDscvrFrameMessage = async (
+  frameActionPayload: DscvrFramesRequest,
+  apiUrl?: string,
+): Promise<DscvrValidationResponse> => {
+  const result = await validateFramesPost(
+    {
       ...frameActionPayload,
       clientProtocol: frameActionPayload.clientProtocol as DscvrClientProtocol,
-    });
+    },
+    apiUrl,
+  );
 
-  return {
-    ...actionBody,
-    verifiedDscvrId,
-    verifiedContentId,
-  };
+  return result;
 };
