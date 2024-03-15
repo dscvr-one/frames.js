@@ -1,5 +1,5 @@
 {
-  "name": "frames.js",
+  "name": "@dscvr-one/frames.js",
   "version": "0.8.2-beta.5",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -199,7 +199,7 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@dscvr-one/frames-adapter": "^1.0.1",
+    "@dscvr-one/frames-adapter": "https://github.com/dscvr-one/frames-adapter/raw/DCP-1600-pkg/dscvr-one-frames-adapter-1.0.1.tgz",
     "@farcaster/core": "^0.14.4",
     "@vercel/og": "^0.6.2",
     "cheerio": "^1.0.0-rc.12",

@@ -4,7 +4,7 @@
 
 "@0no-co/graphql.web@^1.0.1":
   version "1.0.4"
-  resolved "https://registry.npmjs.org/@0no-co/graphql.web/-/graphql.web-1.0.4.tgz"
+  resolved "https://registry.yarnpkg.com/@0no-co/graphql.web/-/graphql.web-1.0.4.tgz#9606eb651955499525d068ce0ad8bea596286ce2"
   integrity sha512-W3ezhHGfO0MS1PtGloaTpg0PbaT8aZSmmaerL7idtU5F7oCI+uu25k+MsMS31BVFlp4aMkHSrNRxiD72IlK8TA==
 
 "@aashutoshrathi/word-wrap@^1.2.3":
@@ -563,10 +563,9 @@
     picocolors "^1.0.0"
     sisteransi "^1.0.5"
 
-"@dscvr-one/frames-adapter@^1.0.1":
+"@dscvr-one/frames-adapter@https://github.com/dscvr-one/frames-adapter/raw/DCP-1600-pkg/dscvr-one-frames-adapter-1.0.1.tgz":
   version "1.0.1"
-  resolved "https://npm.pkg.github.com/download/@dscvr-one/frames-adapter/1.0.1/67c9df74aab36549baa82dc0035ef9b1270c8a52#67c9df74aab36549baa82dc0035ef9b1270c8a52"
-  integrity sha512-iKX9deNYtplcf7CFfcquTXeTBQpqjQ3/5hsB5mhek+0AhkqEd3EqeKecPohqFJvL4byp1jyop3/HshqTUa14zg==
+  resolved "https://github.com/dscvr-one/frames-adapter/raw/DCP-1600-pkg/dscvr-one-frames-adapter-1.0.1.tgz#950a45702e43b82dcccad5817ecec3a1fb17908d"
   dependencies:
     "@urql/core" "^4.3.0"
 
@@ -2312,7 +2311,7 @@
 
 "@urql/core@^4.3.0":
   version "4.3.0"
-  resolved "https://registry.npmjs.org/@urql/core/-/core-4.3.0.tgz"
+  resolved "https://registry.yarnpkg.com/@urql/core/-/core-4.3.0.tgz#5e150412ed08d167861b05ceed417abbd048553f"
   integrity sha512-wT+FeL8DG4x5o6RfHEnONNFVDM3616ouzATMYUClB6CB+iIu2mwfBKd7xSUxYOZmwtxna5/hDRQdMl3nbQZlnw==
   dependencies:
     "@0no-co/graphql.web" "^1.0.1"
@@ -4474,6 +4473,17 @@ fraction.js@^4.3.7:
   version "4.3.7"
   resolved "https://registry.npmjs.org/fraction.js/-/fraction.js-4.3.7.tgz"
   integrity sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==
+
+frames.js@*, frames.js@^0.8.0:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/frames.js/-/frames.js-0.8.3.tgz#236db0271019c1fba6c6aab5874208a82a9eaa10"
+  integrity sha512-a04gA1tCQpe8TD4b8qnw7WFBthppztX3p9hE8OWj4FUbFCSd9DLzE6JJ3LEixo1ZqUjRUpmdjUeFcLki5iLENw==
+  dependencies:
+    "@farcaster/core" "^0.14.4"
+    "@vercel/og" "^0.6.2"
+    cheerio "^1.0.0-rc.12"
+    protobufjs "^7.2.6"
+    viem "^2.7.1"
 
 fresh@0.5.2:
   version "0.5.2"
@@ -9354,7 +9364,7 @@ which@^2.0.1:
 
 wonka@^6.3.2:
   version "6.3.4"
-  resolved "https://registry.npmjs.org/wonka/-/wonka-6.3.4.tgz"
+  resolved "https://registry.yarnpkg.com/wonka/-/wonka-6.3.4.tgz#76eb9316e3d67d7febf4945202b5bdb2db534594"
   integrity sha512-CjpbqNtBGNAeyNS/9W6q3kSkKE52+FjIj7AkFlLr11s/VWGUu6a2CdYSdGxocIhIVjaW/zchesBQUKPVU69Cqg==
 
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
