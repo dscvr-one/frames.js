@@ -83,8 +83,8 @@ const sidebar = [
                 link: "/reference/js/dscvr",
               },
               {
-                text: "getDscvrFrameMessage",
-                link: "/reference/js/dscvr/getDscvrFrameMessage",
+                text: "validateDscvrFrameMessage",
+                link: "/reference/js/dscvr/validateDscvrFrameMessage",
               },
               {
                 text: "isDscvrFrameActionPayload",
