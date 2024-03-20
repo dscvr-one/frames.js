@@ -74,6 +74,24 @@ const sidebar = [
               },
             ],
           },
+          {
+            text: "DSCVR",
+            collapsed: false,
+            items: [
+              {
+                text: "Tutorial",
+                link: "/reference/js/dscvr",
+              },
+              {
+                text: "validateDscvrFrameMessage",
+                link: "/reference/js/dscvr/validateDscvrFrameMessage",
+              },
+              {
+                text: "isDscvrFrameActionPayload",
+                link: "/reference/js/dscvr/isDscvrFrameActionPayload",
+              },
+            ],
+          },
         ],
       },
       {

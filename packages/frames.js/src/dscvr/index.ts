@@ -1,10 +1,32 @@
-import { FrameActionPayload } from '..';
+import {
+  type DscvrFramesRequest,
+  type DscvrClientProtocol,
+  type DscvrValidationResponse,
+  validateClientProtocol,
+  validateFramesPost,
+} from "@dscvr-one/frames-adapter";
+import { FrameActionPayload } from "..";
 
-export function isDscvrFrameActionPayload(
-  frameActionPayload: FrameActionPayload
-) {
+export const isDscvrFrameActionPayload = (
+  frameActionPayload: FrameActionPayload,
+): frameActionPayload is DscvrFramesRequest => {
   return (
     !!frameActionPayload.clientProtocol &&
-    frameActionPayload.clientProtocol.startsWith('dscvr@')
+    validateClientProtocol(frameActionPayload.clientProtocol)
   );
-}
+};
+
+export const validateDscvrFrameMessage = async (
+  frameActionPayload: DscvrFramesRequest,
+  apiUrl?: string,
+): Promise<DscvrValidationResponse> => {
+  const result = await validateFramesPost(
+    {
+      ...frameActionPayload,
+      clientProtocol: frameActionPayload.clientProtocol as DscvrClientProtocol,
+    },
+    apiUrl,
+  );
+
+  return result;
+};
